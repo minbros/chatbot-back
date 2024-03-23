@@ -1,12 +1,12 @@
 package org.minbros.chatbot.service;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.minbros.chatbot.domain.Member;
 import org.minbros.chatbot.repository.ChatRepository;
-import org.minbros.chatbot.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings("ALL")
 @SpringBootTest
@@ -18,20 +18,14 @@ class ChatServiceTest {
     @Autowired
     private ChatService chatService;
 
-    @Autowired
-    private MemberRepository memberRepository;
-
     @AfterEach
     public void afterEach() {
 //        chatRepository.deleteAll();
-//        memberRepository.deleteAll();
     }
 
     @Test
-    void 챗봇과_채팅() {
-        Member member = new Member();
-        member.setUserId("Kim");
-        memberRepository.save(member);
+    @DisplayName("챗봇 응답 출력")
+    void testChatSaving() {
         String message = "How can I use chatgpt?";
         String response = chatService.generate(message).get("generation");
 
@@ -41,11 +35,5 @@ class ChatServiceTest {
             sb.replace(i, i + 1, "\n");
         }
         System.out.println(sb.toString());
-    }
-
-    @Test
-    void clearAll() {
-        chatRepository.deleteAll();
-        memberRepository.deleteAll();
     }
 }

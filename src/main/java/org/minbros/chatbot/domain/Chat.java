@@ -16,31 +16,23 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Lob
-    @Column
+    @Column(columnDefinition = "LONGTEXT")
     private String message;
 
-    @Lob
-    @Column
+    @Column(columnDefinition = "LONGTEXT")
     private String response;
 
     @Column
     private LocalDateTime time;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    public Chat(String message, Member member) {
+    public Chat(String message) {
         this.message = message;
         this.time = LocalDateTime.now();
-        this.member = member;
     }
 
-    public Chat(String message, String response, Member member) {
+    public Chat(String message, String response) {
         this.message = message;
         this.response = response;
         this.time = LocalDateTime.now();
-        this.member = member;
     }
 }

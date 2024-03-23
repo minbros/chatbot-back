@@ -1,7 +1,7 @@
 package org.minbros.chatbot.service;
 
+import org.minbros.chatbot.domain.Chat;
 import org.minbros.chatbot.repository.ChatRepository;
-import org.minbros.chatbot.repository.MemberRepository;
 import org.springframework.ai.chat.ChatResponse;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -17,17 +17,15 @@ public class ChatService {
     private final OpenAiChatClient chatClient;
     private final ChatRepository chatRepository;
 
-    private final MemberRepository memberRepository;
-
     @Autowired
-    public ChatService(OpenAiChatClient chatClient, ChatRepository chatRepository, MemberRepository memberRepository) {
+    public ChatService(OpenAiChatClient chatClient, ChatRepository chatRepository) {
         this.chatClient = chatClient;
         this.chatRepository = chatRepository;
-        this.memberRepository = memberRepository;
     }
 
     public Map<String, String> generate(String message) {
         String response = chatClient.call(message);
+        chatRepository.save(new Chat(message, response));
         return Map.of("generation", response);
     }
 
