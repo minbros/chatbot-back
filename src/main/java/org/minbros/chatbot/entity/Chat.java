@@ -17,23 +17,31 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(columnDefinition = "LONGTEXT")
+    @Lob
+    @Column
     private String message;
 
-    @Column(columnDefinition = "LONGTEXT")
+    @Lob
+    @Column
     private String response;
 
     @Column
     private LocalDateTime time;
 
-    public Chat(String message) {
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public Chat(String message, Member member) {
         this.message = message;
         this.time = LocalDateTime.now();
+        this.member = member;
     }
 
-    public Chat(String message, String response) {
+    public Chat(String message, String response, Member member) {
         this.message = message;
         this.response = response;
         this.time = LocalDateTime.now();
+        this.member = member;
     }
 }
