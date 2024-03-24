@@ -1,4 +1,4 @@
-package org.minbros.chatbot.domain;
+package org.minbros.chatbot.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -13,8 +14,8 @@ import java.time.LocalDateTime;
 @Entity
 public class Chat {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(columnDefinition = "LONGTEXT")
     private String message;
