@@ -30,12 +30,4 @@ class ChatServiceTest {
         String response = chatService.generate(message).get("generation");
         assertNotNull(response);
     }
-
-        StringBuilder sb = new StringBuilder(response);
-        int i = 0;
-        while (i + 50 < sb.length() && (i = sb.lastIndexOf(" ", i + 50)) != -1) {
-            sb.replace(i, i + 1, "\n");
-        }
-        System.out.println(sb.toString());
-    }
 }
