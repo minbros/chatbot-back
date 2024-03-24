@@ -1,6 +1,7 @@
 package org.minbros.chatbot.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "LONGTEXT", nullable = false)
     private String message;
 
     @Column(columnDefinition = "LONGTEXT")
@@ -31,6 +32,7 @@ public class Chat {
         this.time = LocalDateTime.now();
     }
 
+    @Builder
     public Chat(String message, String response) {
         this.message = message;
         this.response = response;

@@ -14,6 +14,6 @@ public class SwaggerConfig {
     }
 
     private Info apiInfo() {
-        return new Info().title("Chatbot API Test").description("Chatbot project").version("0.1.0");
+        return new Info().title("Sidaebot API Test").description("Sidaebot project").version("0.1.0");
     }
 }
