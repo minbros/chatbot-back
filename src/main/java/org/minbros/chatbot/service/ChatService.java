@@ -30,6 +30,7 @@ public class ChatService {
     }
 
     public Map<String, String> generate(String message) {
+        logger.info(message);
         String queriedText = vectorStore.similaritySearch(message).getFirst().getContent();
         logger.info("쿼리된 텍스트: {}", queriedText);
 
@@ -37,7 +38,7 @@ public class ChatService {
         String request = String.format("\"%s\"에 관한 설명을 덧붙여줘", queriedText);
         logger.info("프롬프트: {}", request);
 
-        String response = chatClient.call(request);
+        String response = chatClient.call(message);
         logger.info("GPT 응답: {}", response);
         chatRepository.save(new Chat(message, response));
         return Map.of("generation", response);

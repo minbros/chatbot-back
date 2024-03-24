@@ -18,8 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SuppressWarnings("ALL")
 @SpringBootTest
 class ChatServiceTest {
-    private static final Logger logger = LoggerFactory.getLogger(ChatServiceTest.class);
-
     @Autowired
     private ChatRepository chatRepository;
 
@@ -55,7 +53,7 @@ class ChatServiceTest {
     @Test
     @DisplayName("Pinecone 데이터에 쿼리")
     void queryPinecone() {
-        String message = "What is the representative character of the municipal university?";
+        String message = "서울시립대학교의 대표 캐릭터는 이루매입니다.";
         List<Document> results = vectorStore.similaritySearch(message);
         String result = results.getFirst().getContent();
         System.out.println(results);
