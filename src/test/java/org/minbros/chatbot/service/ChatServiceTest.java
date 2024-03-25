@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SuppressWarnings("ALL")
 @SpringBootTest
 class ChatServiceTest {
-
     @Autowired
     private ChatRepository chatRepository;
 
