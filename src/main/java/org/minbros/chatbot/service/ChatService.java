@@ -25,8 +25,8 @@ public class ChatService {
         return Map.of("generation", response);
     }
 
-    public Flux<ChatResponse> generateStream(String message) {
-        Prompt prompt = new Prompt(new UserMessage(message));
+    public Flux<ChatResponse> generateStream(ResponseGenerateDto generateDto) {
+        Prompt prompt = new Prompt(new UserMessage(generateDto.getMessage()));
         return chatClient.stream(prompt);
     }
 }

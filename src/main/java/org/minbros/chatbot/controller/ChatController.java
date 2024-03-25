@@ -19,12 +19,12 @@ public class ChatController {
     private final ChatService chatService;
 
     @GetMapping("/generate")
-    public Map<String, String> generate(@RequestBody ResponseGenerateDto generateDto) {
+    public Map<String, String> generate(ResponseGenerateDto generateDto) {
         return chatService.generate(generateDto);
     }
 
-    @GetMapping("/generateStream")
+    @GetMapping("/generate-stream")
     public Flux<ChatResponse> generateStream(ResponseGenerateDto generateDto) {
-        return chatService.generateStream(generateDto.getMessage());
+        return chatService.generateStream(generateDto);
     }
 }
