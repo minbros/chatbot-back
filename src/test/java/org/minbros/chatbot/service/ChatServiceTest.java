@@ -1,6 +1,5 @@
 package org.minbros.chatbot.service;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.minbros.chatbot.dto.ResponseGenerateDto;
@@ -18,11 +17,6 @@ class ChatServiceTest {
 
     @Autowired
     private ChatService chatService;
-
-    @AfterEach
-    public void afterEach() {
-//        chatRepository.deleteAll();
-    }
 
     @Test
     @DisplayName("챗봇 응답 출력")
