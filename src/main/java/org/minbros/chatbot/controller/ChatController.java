@@ -5,9 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.minbros.chatbot.dto.ResponseGenerateDto;
 import org.minbros.chatbot.service.ChatService;
 import org.springframework.ai.chat.ChatResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.util.Map;
@@ -20,12 +18,12 @@ import java.util.Map;
 public class ChatController {
     private final ChatService chatService;
 
-    @GetMapping("/ai/generate")
-    public Map<String, String> generate(ResponseGenerateDto generateDto) {
+    @GetMapping("/generate")
+    public Map<String, String> generate(@RequestBody ResponseGenerateDto generateDto) {
         return chatService.generate(generateDto);
     }
 
-    @GetMapping("/ai/generateStream")
+    @GetMapping("/generateStream")
     public Flux<ChatResponse> generateStream(ResponseGenerateDto generateDto) {
         return chatService.generateStream(generateDto.getMessage());
     }
