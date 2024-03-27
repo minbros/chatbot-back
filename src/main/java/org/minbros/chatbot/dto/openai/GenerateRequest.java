@@ -1,14 +1,10 @@
 package org.minbros.chatbot.dto.openai;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class GenerateRequest {
+    @NonNull
     private String message;
 }

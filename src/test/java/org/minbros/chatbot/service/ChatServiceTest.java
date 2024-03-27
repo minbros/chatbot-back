@@ -21,10 +21,7 @@ class ChatServiceTest {
     @Test
     @DisplayName("챗봇 응답 출력")
     void testChatSaving() {
-        GenerateRequest generateDto = new GenerateRequest()
-                .builder()
-                .message("How can I use chatgpt?")
-                .build();
+        GenerateRequest generateDto = new GenerateRequest("How can I use chatgpt?");
         String response = chatService.generate(generateDto).get("generation");
         assertNotNull(response);
     }
