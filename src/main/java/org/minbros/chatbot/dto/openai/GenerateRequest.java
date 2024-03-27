@@ -1,4 +1,4 @@
-package org.minbros.chatbot.dto;
+package org.minbros.chatbot.dto.openai;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseGenerateDto {
+public class GenerateRequest {
     private String message;
 }

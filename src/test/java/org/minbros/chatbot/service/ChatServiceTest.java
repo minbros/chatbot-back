@@ -2,7 +2,7 @@ package org.minbros.chatbot.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.minbros.chatbot.dto.ResponseGenerateDto;
+import org.minbros.chatbot.dto.openai.GenerateRequest;
 import org.minbros.chatbot.repository.ChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +21,7 @@ class ChatServiceTest {
     @Test
     @DisplayName("챗봇 응답 출력")
     void testChatSaving() {
-        ResponseGenerateDto generateDto = new ResponseGenerateDto()
+        GenerateRequest generateDto = new GenerateRequest()
                 .builder()
                 .message("How can I use chatgpt?")
                 .build();
