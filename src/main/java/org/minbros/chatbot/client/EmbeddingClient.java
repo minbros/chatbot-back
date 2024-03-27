@@ -1,13 +1,18 @@
 package org.minbros.chatbot.client;
 
+import groovy.util.logging.Slf4j;
 import org.minbros.chatbot.dto.openai.EmbedRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Component
+@Slf4j
 public class EmbeddingClient {
     private final WebClient webClient;
 
@@ -21,10 +26,19 @@ public class EmbeddingClient {
                 .build();
     }
 
-    public Mono<String> embedText(EmbedRequest request) {
-        return webClient.post()
+    @SuppressWarnings("unchecked")
+    public List<Double> embedText(EmbedRequest request) {
+        ArrayList<Map<String, Object>> result = webClient.post()
                 .bodyValue(request)
                 .retrieve()
-                .bodyToMono(String.class);
+                .bodyToMono(Map.class)
+                .map(body -> (ArrayList<Map<String, Object>>) body.get("data"))
+                .block();
+
+        if (result == null) {
+            throw new NullPointerException("Response data was null.");
+        }
+
+        return (List<Double>) result.get(0).get("embedding");
     }
 }

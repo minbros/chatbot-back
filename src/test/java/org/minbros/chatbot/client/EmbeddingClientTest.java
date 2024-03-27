@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -17,10 +20,8 @@ class EmbeddingClientTest {
     @Test
     @DisplayName("텍스트 임베딩 테스트")
     void textEmbeddingTest() {
-        Mono<String> mono = embeddingClient.embedText(new EmbedRequest("안녕하세요"));
-        String result = mono.block();
+        List<Double> result = embeddingClient.embedText(new EmbedRequest("안녕하세요"));
         System.out.println(result);
         assertNotNull(result);
     }
-
 }
