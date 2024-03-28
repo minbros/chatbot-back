@@ -1,9 +1,6 @@
 package org.minbros.chatbot.dto.pinecone.request;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.minbros.chatbot.dto.pinecone.Query;
 import org.minbros.chatbot.dto.pinecone.SparseValue;
 
@@ -12,7 +9,9 @@ import java.util.Map;
 
 @Getter
 @Builder
+@NoArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class QueryRequest {
     private Map<String, Map<String, String>> filter;
 

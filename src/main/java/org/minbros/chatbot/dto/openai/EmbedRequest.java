@@ -4,6 +4,7 @@ import lombok.*;
 
 @Getter
 @Builder
+@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class EmbedRequest {

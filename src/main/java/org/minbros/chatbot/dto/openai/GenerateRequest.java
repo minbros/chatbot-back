@@ -3,7 +3,8 @@ package org.minbros.chatbot.dto.openai;
 import lombok.*;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class GenerateRequest {
     @NonNull
     private String message;

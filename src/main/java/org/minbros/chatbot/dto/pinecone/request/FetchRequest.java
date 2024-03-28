@@ -6,6 +6,7 @@ import java.util.List;
 
 @Getter
 @Builder
+@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class FetchRequest {

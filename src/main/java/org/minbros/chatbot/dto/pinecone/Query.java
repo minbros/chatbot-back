@@ -1,16 +1,15 @@
 package org.minbros.chatbot.dto.pinecone;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.Map;
 
 @Getter
 @Builder
+@NoArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Query {
     private Map<String, Map<String, String>> filter;
 

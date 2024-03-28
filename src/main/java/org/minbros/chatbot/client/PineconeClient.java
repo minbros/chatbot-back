@@ -60,7 +60,6 @@ public class PineconeClient {
         log.info("Embedded value: {}", embedded);
 
         Map<String, String> metadata = Map.of("content", message);
-        new PineconeVector();
         PineconeVector vector = PineconeVector.builder().values(embedded).metadata(metadata).build();
 
         List<PineconeVector> vectors = new ArrayList<>();
