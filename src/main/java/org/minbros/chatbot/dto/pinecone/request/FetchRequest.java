@@ -13,7 +13,7 @@ public class FetchRequest {
     private List<String> ids;
 
     @Builder.Default
-    private String namespace = "";
+    private String namespace = "uos";
 
     // ids List가 "ids=id-1&ids=id-2&ids=id-3"와 같이 문자열로 변환됨
     public String toUri() {
