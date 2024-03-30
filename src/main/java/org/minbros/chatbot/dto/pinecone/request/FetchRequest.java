@@ -6,7 +6,6 @@ import java.util.List;
 
 @Getter
 @Builder
-@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class FetchRequest {
@@ -26,9 +25,7 @@ public class FetchRequest {
             uri.append(String.format("ids=%s", id));
             uri.append("&");
         }
-
-        uri.append(this.namespace);
-        uri.deleteCharAt(uri.length() - 1);
+        uri.append(String.format("namespace=%s", this.namespace));
 
         return uri.toString();
     }

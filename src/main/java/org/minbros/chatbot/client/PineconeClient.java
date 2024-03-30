@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.minbros.chatbot.dto.openai.EmbedRequest;
 import org.minbros.chatbot.dto.pinecone.PineconeVector;
 import org.minbros.chatbot.dto.pinecone.request.FetchRequest;
+import org.minbros.chatbot.dto.pinecone.request.QueryRequest;
 import org.minbros.chatbot.dto.pinecone.request.UpsertRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -42,6 +43,26 @@ public class PineconeClient {
     public String upsert(String message, String namespace) throws IllegalArgumentException {
         upsertNamespace = namespace;
         return requestClientToUpsert(message);
+    }
+
+    public String upsert(UpsertRequest request) {
+        return webClient.post()
+                .uri("/vectors/upsert")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
+
+    public String query(QueryRequest request) throws IllegalArgumentException {
+        return webClient.post()
+                .uri("/query")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
     }
 
     public String fetch(FetchRequest request) throws IllegalArgumentException {

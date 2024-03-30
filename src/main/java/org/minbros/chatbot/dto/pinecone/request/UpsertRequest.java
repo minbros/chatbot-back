@@ -6,6 +6,8 @@ import org.minbros.chatbot.dto.pinecone.PineconeVector;
 import java.util.List;
 
 @Getter
+@Builder
+@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class UpsertRequest {
