@@ -1,7 +1,6 @@
 package org.minbros.chatbot.dto.pinecone.request;
 
 import lombok.*;
-import org.minbros.chatbot.dto.pinecone.Query;
 import org.minbros.chatbot.dto.pinecone.SparseValue;
 
 import java.util.List;
@@ -33,4 +32,22 @@ public class QueryRequest {
 
     @NonNull
     private Integer topK;
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @RequiredArgsConstructor
+    @AllArgsConstructor
+    public static class Query {
+        private Map<String, Map<String, String>> filter;
+
+        private String namespace;
+
+        private SparseValue sparseValues;
+
+        private int topK;
+
+        @NonNull
+        private List<Double> values;
+    }
 }

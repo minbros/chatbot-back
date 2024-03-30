@@ -18,7 +18,6 @@ public class FetchRequest {
     // ids List가 "ids=id-1&ids=id-2&ids=id-3"와 같이 문자열로 변환됨
     public String toUri() {
         StringBuilder uri = new StringBuilder();
-
         uri.append("/vectors/fetch?");
 
         for (String id : this.ids) {

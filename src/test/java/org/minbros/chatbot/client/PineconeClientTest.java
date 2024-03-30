@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.minbros.chatbot.dto.openai.EmbedRequest;
 import org.minbros.chatbot.dto.pinecone.request.FetchRequest;
 import org.minbros.chatbot.dto.pinecone.request.QueryRequest;
+import org.minbros.chatbot.dto.pinecone.request.UpsertRequest;
+import org.minbros.chatbot.util.PineconeRequestGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,10 +23,16 @@ class PineconeClientTest {
     @Autowired
     private EmbeddingClient embeddingClient;
 
+    @Autowired
+    private PineconeRequestGenerator pineconeRequestGenerator;
+
     @Test
     @DisplayName("Pinecone upsert 테스트")
     void upsertTest() {
-        String response = pineconeClient.upsert("서울시립대는 등록금이 매우 저렴합니다.");
+        UpsertRequest request =
+                pineconeRequestGenerator.toUpsertRequest("서울시립대의 등록금은 저렴합니다.", "1");
+        String response = pineconeClient.upsert(request);
+
         System.out.println(response);
         assertNotNull(response);
     }
