@@ -2,7 +2,8 @@ package org.minbros.chatbot.util;
 
 import org.minbros.chatbot.client.EmbeddingClient;
 import org.minbros.chatbot.dto.openai.EmbedRequest;
-import org.minbros.chatbot.dto.pinecone.request.UpsertRequest;
+import org.minbros.chatbot.dto.pinecone.UpsertRequest;
+import org.minbros.chatbot.dto.pinecone.Vector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,17 +30,17 @@ public class PineconeRequestGenerator {
     }
 
     private UpsertRequest embedRequestToUpsertRequest(EmbedRequest embedRequest, String id) {
-        UpsertRequest.Vector vector = UpsertRequest.Vector.builder()
+        Vector vector = Vector.builder()
                 .id(id)
-                .values(embeddingClient.embedText(embedRequest))
+                .values(embeddingClient.embed(embedRequest).getData().getFirst().getEmbedding())
                 .metadata(Map.of("content", embedRequest.getInput()))
                 .build();
 
         return getUpsertRequest(vector);
     }
 
-    private static UpsertRequest getUpsertRequest(UpsertRequest.Vector vector) {
-        List<UpsertRequest.Vector> vectorsList = new ArrayList<>();
+    private static UpsertRequest getUpsertRequest(Vector vector) {
+        List<Vector> vectorsList = new ArrayList<>();
         vectorsList.add(vector);
 
         return new UpsertRequest(vectorsList, NAMESPACE);

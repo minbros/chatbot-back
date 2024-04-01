@@ -2,7 +2,7 @@ package org.minbros.chatbot.dto.openai;
 
 import lombok.*;
 
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class GenerateRequest {

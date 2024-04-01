@@ -1,12 +1,12 @@
 package org.minbros.chatbot.dto.pinecone;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@Getter
+@Data
 @RequiredArgsConstructor
 public class SparseValue {
     @NonNull

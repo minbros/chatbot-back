@@ -2,9 +2,8 @@ package org.minbros.chatbot.dto.openai;
 
 import lombok.*;
 
-@Getter
+@Data
 @Builder
-@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class EmbedRequest {

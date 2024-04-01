@@ -1,10 +1,10 @@
-package org.minbros.chatbot.dto.pinecone.request;
+package org.minbros.chatbot.dto.pinecone;
 
 import lombok.*;
 
 import java.util.List;
 
-@Getter
+@Data
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
