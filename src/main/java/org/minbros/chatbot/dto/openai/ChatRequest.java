@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GenerateRequest {
+public class ChatRequest {
     @NonNull
     private String message;
 }

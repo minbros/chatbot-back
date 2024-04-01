@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 
 @Component
@@ -22,34 +23,32 @@ public class PineconeClient {
                 .build();
     }
 
-    public UpsertResponse upsert(UpsertRequest request) {
+    public Mono<UpsertResponse> upsert(UpsertRequest request) {
         return webClient.post()
                 .uri("/vectors/upsert")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .bodyValue(request)
                 .retrieve()
-                .bodyToMono(UpsertResponse.class)
-                .block();
+                .bodyToMono(UpsertResponse.class);
     }
 
-    public QueryResponse query(QueryRequest request) {
+    public Mono<QueryResponse> query(QueryRequest request) {
         return webClient.post()
                 .uri("/query")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .bodyValue(request)
                 .retrieve()
-                .bodyToMono(QueryResponse.class)
-                .block();
+                .bodyToMono(QueryResponse.class);
     }
 
-    public FetchResponse fetch(FetchRequest request) {
-        String uri = request.toUri();
-        log.info("Uri converted due to fetch method: {}", uri);
-
+    public Mono<FetchResponse> fetch(FetchRequest request) {
         return webClient.get()
-                .uri(uri)
+                .uri(uriBuilder -> uriBuilder
+                        .path("/vectors/fetch")
+                        .queryParam("ids", request.getIds())
+                        .queryParam("namespace", request.getNamespace())
+                        .build())
                 .retrieve()
-                .bodyToMono(FetchResponse.class)
-                .block();
+                .bodyToMono(FetchResponse.class);
     }
 }

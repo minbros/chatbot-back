@@ -7,7 +7,6 @@ import java.util.Map;
 
 @Data
 @Builder
-@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class QueryRequest {
@@ -34,7 +33,6 @@ public class QueryRequest {
 
     @Getter
     @Builder
-    @NoArgsConstructor
     @RequiredArgsConstructor
     @AllArgsConstructor
     public static class Query {

@@ -18,7 +18,7 @@ class EmbeddingClientTest {
     @Test
     @DisplayName("텍스트 임베딩 테스트")
     void textEmbeddingTest() {
-        EmbedResponse result = embeddingClient.embed(new EmbedRequest("안녕하세요"));
+        EmbedResponse result = embeddingClient.embed(new EmbedRequest("안녕하세요")).block();
         System.out.println(result);
         assertNotNull(result);
     }

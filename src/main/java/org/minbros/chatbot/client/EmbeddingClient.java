@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 
 @Component
@@ -24,11 +25,10 @@ public class EmbeddingClient {
                 .build();
     }
 
-    public EmbedResponse embed(EmbedRequest request) {
+    public Mono<EmbedResponse> embed(EmbedRequest request) {
         return webClient.post()
                 .bodyValue(request)
                 .retrieve()
-                .bodyToMono(EmbedResponse.class)
-                .block();
+                .bodyToMono(EmbedResponse.class);
     }
 }

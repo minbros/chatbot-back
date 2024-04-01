@@ -4,7 +4,6 @@ import lombok.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Data
 @Builder
@@ -12,13 +11,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Vector {
-    @Builder.Default
-    private String id = UUID.randomUUID().toString();
+    @NonNull
+    private String id;
 
     @NonNull
     private List<Double> values;
 
     private SparseValue sparseValues;
 
-    private Map<String, String> metadata;
+    private Map<String, Object> metadata;
 }

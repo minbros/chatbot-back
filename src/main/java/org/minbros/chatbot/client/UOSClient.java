@@ -2,6 +2,7 @@ package org.minbros.chatbot.client;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Component
 public class UOSClient {
@@ -15,14 +16,13 @@ public class UOSClient {
                 .build();
     }
 
-    public String getAnnouncement() {
+    public Mono<String> getAnnouncement() {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/api.ApiApiMainBd.oapi")
                         .queryParam("apiKey", uosAPIKey)
                         .build())
                 .retrieve()
-                .bodyToMono(String.class)
-                .block();
+                .bodyToMono(String.class);
     }
 }

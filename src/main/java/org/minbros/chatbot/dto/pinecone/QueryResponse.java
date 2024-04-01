@@ -22,5 +22,7 @@ public class QueryResponse {
         private Double score;
 
         private List<Double> values;
+
+        private Map<String, Object> metadata;
     }
 }

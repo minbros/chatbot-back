@@ -6,7 +6,6 @@ import java.util.List;
 
 @Data
 @Builder
-@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class UpsertRequest {
