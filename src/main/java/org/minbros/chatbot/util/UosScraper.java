@@ -13,17 +13,22 @@ import java.time.Year;
 public class UosScraper {
     private static final String BASE_URL = "https://www.uos.ac.kr";
 
-    public String getCalendar() throws IOException {
+    public String getCalendar() {
         int currentYear = Year.now().getValue();
-        String regex = String.format("^m%d(0[1-9]|1[1-2])c\\d+", currentYear);
-        final String url = String.format
-                (BASE_URL + "/korCalendarYear/list.do?list_id=CA1&year_code=%d&menuid=2000003003001000000", currentYear);
+        String regex = String.format("^m(%d|%d)(0[1-9]|1[1-2])c\\d+", currentYear, currentYear + 1);
+        final String url = BASE_URL + "/korCalendarYear/list.do?list_id=CA1";
 
-        Document document = Jsoup.connect(url).get();
-        Elements elements = document.select(String.format("tr[id~=%s]", regex));
+        Elements elements;
+        try {
+            Document document = Jsoup.connect(url).get();
+            elements = document.select(String.format("tr[id~=%s]", regex)).select("td");
+        } catch (IOException e) {
+            throw new IllegalStateException("학사일정 추출 중 에러");
+        }
+
         StringBuilder result = new StringBuilder();
         for (Element element : elements) {
-            result.append(element.text());
+            result.append(element.text()).append("\n");
         }
 
         return result.toString();

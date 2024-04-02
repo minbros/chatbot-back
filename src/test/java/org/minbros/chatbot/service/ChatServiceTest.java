@@ -25,7 +25,7 @@ class ChatServiceTest {
     @Test
     @DisplayName("챗봇 응답 출력")
     void testChatSaving() throws IOException {
-        ChatRequest generateDto = new ChatRequest("복학 신청일이 언제야?");
+        ChatRequest generateDto = new ChatRequest("2학기 휴학 신청기간이 언제야?");
         String response = chatService.generate(generateDto).get("generation");
         System.out.println(response);
         assertNotNull(response);
