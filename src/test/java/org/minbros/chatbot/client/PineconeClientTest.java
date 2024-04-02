@@ -22,7 +22,7 @@ class PineconeClientTest {
     @DisplayName("Pinecone upsert 테스트")
     void upsertTest() {
         UpsertRequest request =
-                pineconeRequestGenerator.toUpsertRequest("서울시립대학교의 공지사항에 관련된 질문", "announcement", "공지사항");
+                pineconeRequestGenerator.toUpsertRequest("서울시립대학교의 학사일정에 관련된 질문", "calendar", "학사일정");
         UpsertResponse response = pineconeClient.upsert(request).block();
         System.out.println(response);
         assertNotNull(response);

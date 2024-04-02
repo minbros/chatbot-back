@@ -5,12 +5,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Component
-public class UOSClient {
+public class UosWiseClient {
     // Wise에 있는 openAPI를 불러오는 객체
     private final String uosAPIKey = System.getenv("UOS_API_KEY");
     private final WebClient webClient;
 
-    public UOSClient() {
+    public UosWiseClient() {
         this.webClient = WebClient.builder()
                 .baseUrl("https://wise.uos.ac.kr/uosdoc")
                 .build();

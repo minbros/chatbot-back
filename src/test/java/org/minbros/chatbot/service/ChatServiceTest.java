@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.Flux;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings("ALL")
@@ -22,8 +24,8 @@ class ChatServiceTest {
 
     @Test
     @DisplayName("챗봇 응답 출력")
-    void testChatSaving() {
-        ChatRequest generateDto = new ChatRequest("나 너무 피곤해");
+    void testChatSaving() throws IOException {
+        ChatRequest generateDto = new ChatRequest("복학 신청일이 언제야?");
         String response = chatService.generate(generateDto).get("generation");
         System.out.println(response);
         assertNotNull(response);
@@ -31,7 +33,7 @@ class ChatServiceTest {
 
     @Test
     @DisplayName("챗봇 스트림 응답 출력")
-    void generateStreamTest() {
+    void generateStreamTest() throws IOException {
         ChatRequest request = new ChatRequest("나 너무 피곤해");
         Flux<ChatResponse> responseFlux = chatService.generateStream(request);
         responseFlux.subscribe(data -> System.out.print(data.getResult().getOutput().getContent()));

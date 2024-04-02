@@ -22,7 +22,7 @@ public class PineconeRequestGenerator {
     // Request 형식으로 변환시켜주는 객체
     private final EmbeddingClient embeddingClient;
 
-    private static final String DEFAULT_NAMESPACE = "uos";
+    private static final String DEFAULT_NAMESPACE = "";
 
     @Autowired
     public PineconeRequestGenerator(EmbeddingClient embeddingClient) {

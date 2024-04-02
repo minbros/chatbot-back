@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class UOSClientTest {
     @Autowired
-    private UOSClient uosClient;
+    private UosWiseClient uosClient;
 
     @Test
     @DisplayName("Wise 학사일정 및 공지사항 출력 테스트")
