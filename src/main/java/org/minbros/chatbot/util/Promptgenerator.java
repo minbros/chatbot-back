@@ -11,11 +11,24 @@ import java.util.Map;
 public class Promptgenerator {
     private final UosScraper uosScraper;
 
-    public String generateProperPrompt(Map<String, Object> metadata, ChatRequest request)  {
+    public String generateProperPrompt(Map<String, Object> metadata, ChatRequest request) {
         StringBuilder stringBuilder = new StringBuilder();
+        String keyword = metadata.get("keyword").toString();
 
-        if (metadata.get("keyword").equals("학사일정")) {
-            getCalendarPrompt(request, stringBuilder);
+        switch (keyword) {
+            case "학사일정" -> getCalendarPrompt(request, stringBuilder);
+            case "학식" -> {
+                String place = metadata.get("place").toString();
+                RestaurantLocation location = switch (place) {
+                    case "학생회관" -> RestaurantLocation.CENTER;
+                    case "본관" -> RestaurantLocation.MAIN_BUILDING;
+                    case "양식당" -> RestaurantLocation.WESTERN;
+                    case "자연과학관" -> RestaurantLocation.NATURAL_SCIENCE;
+                    default -> throw new IllegalArgumentException("매치된 '학식'의 place가 없습니다. 쿼리된 place: " + place);
+                };
+                getDietPrompt(request, location, stringBuilder);
+            }
+            default -> throw new IllegalArgumentException("매치된 metadata:keyword가 없습니다. 쿼리된 keyword: " + keyword);
         }
 
         return stringBuilder.toString();
@@ -33,5 +46,9 @@ public class Promptgenerator {
                 "그리고 마지막에는 해당 설명이 정확하지 않을 수 있으니 정확한 일정은 " +
                 "\"https://www.uos.ac.kr/korCalendarYear/list.do?list_id=CA1\"에서 확인하라는 " +
                 "말을 덧붙여줘");
+    }
+
+    private void getDietPrompt(ChatRequest request, RestaurantLocation location, StringBuilder stringBuilder) {
+        // 구현 예정
     }
 }
