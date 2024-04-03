@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.Flux;
 
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +23,7 @@ class ChatServiceTest {
 
     @Test
     @DisplayName("챗봇 응답 출력")
-    void testChatSaving() throws IOException {
+    void testChatSaving() {
         ChatRequest generateDto = new ChatRequest("2학기 휴학 신청기간이 언제야?");
         String response = chatService.generate(generateDto).get("generation");
         System.out.println(response);
@@ -33,7 +32,7 @@ class ChatServiceTest {
 
     @Test
     @DisplayName("챗봇 스트림 응답 출력")
-    void generateStreamTest() throws IOException {
+    void generateStreamTest() {
         ChatRequest request = new ChatRequest("나 너무 피곤해");
         Flux<ChatResponse> responseFlux = chatService.generateStream(request);
         responseFlux.subscribe(data -> System.out.print(data.getResult().getOutput().getContent()));

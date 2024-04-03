@@ -8,7 +8,6 @@ import org.springframework.ai.chat.ChatResponse;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
-import java.io.IOException;
 import java.util.Map;
 
 
@@ -20,12 +19,12 @@ public class ChatController {
     private final ChatService chatService;
 
     @GetMapping("/generate")
-    public Map<String, String> generate(ChatRequest request) throws IOException {
+    public Map<String, String> generate(ChatRequest request) {
         return chatService.generate(request);
     }
 
     @GetMapping("/generate-stream")
-    public Flux<ChatResponse> generateStream(ChatRequest request) throws IOException {
+    public Flux<ChatResponse> generateStream(ChatRequest request) {
         return chatService.generateStream(request);
     }
 }
