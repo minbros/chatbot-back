@@ -3,6 +3,7 @@ package org.minbros.chatbot.client;
 import groovy.util.logging.Slf4j;
 import org.minbros.chatbot.dto.openai.EmbedRequest;
 import org.minbros.chatbot.dto.openai.EmbedResponse;
+import org.springframework.ai.document.Document;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -30,5 +31,10 @@ public class EmbeddingClient {
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(EmbedResponse.class);
+    }
+
+    public Mono<EmbedResponse> embed(Document document) {
+        EmbedRequest request = new EmbedRequest(document.getContent());
+        return embed(request);
     }
 }

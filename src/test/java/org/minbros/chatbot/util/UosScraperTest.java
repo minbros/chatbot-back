@@ -20,4 +20,12 @@ class UosScraperTest {
         System.out.println(calendar);
         assertNotNull(calendar);
     }
+
+    @Test
+    @DisplayName("식단표 스크랩 테스트")
+    void scrapDiet() {
+        String diet = uosScraper.getDiet(RestaurantLocation.NATURAL_SCIENCE);
+        System.out.println(diet);
+        assertNotNull(diet);
+    }
 }

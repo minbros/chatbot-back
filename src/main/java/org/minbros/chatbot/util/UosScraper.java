@@ -15,7 +15,7 @@ public class UosScraper {
 
     public String getCalendar() {
         int currentYear = Year.now().getValue();
-        String regex = String.format("^m(%d|%d)(0[1-9]|1[1-2])c\\d+", currentYear, currentYear + 1);
+        final String regex = String.format("^m(%d|%d)(0[1-9]|1[1-2])c\\d+", currentYear, currentYear + 1);
         final String url = BASE_URL + "/korCalendarYear/list.do?list_id=CA1";
 
         Elements elements;
@@ -33,4 +33,25 @@ public class UosScraper {
 
         return result.toString();
     }
+
+    public String getDiet(RestaurantLocation location) {
+        final String menuId = "2000005006002000000";
+        final String url = BASE_URL + String.format("/food/placeList.do?rstcde=%s&menuid=%s", location.getStringValue(), menuId);
+
+        Elements elements;
+        try {
+            Document document = Jsoup.connect(url).get();
+            elements = document.select("div#week").select("tr");
+        } catch (IOException e) {
+            throw new IllegalStateException("식단표 추출 중 에러");
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (Element element : elements) {
+            result.append(element.text()).append("\n");
+        }
+
+        return result.toString();
+    }
 }
+
