@@ -26,12 +26,7 @@ public class UosScraper {
             throw new IllegalStateException("학사일정 추출 중 에러");
         }
 
-        StringBuilder result = new StringBuilder();
-        for (Element element : elements) {
-            result.append(element.text()).append("\n");
-        }
-
-        return result.toString();
+        return getText(elements);
     }
 
     public String getDiet(RestaurantLocation location) {
@@ -46,6 +41,10 @@ public class UosScraper {
             throw new IllegalStateException("식단표 추출 중 에러");
         }
 
+        return getText(elements);
+    }
+
+    private static String getText(Elements elements) {
         StringBuilder result = new StringBuilder();
         for (Element element : elements) {
             result.append(element.text()).append("\n");
@@ -54,4 +53,3 @@ public class UosScraper {
         return result.toString();
     }
 }
-
