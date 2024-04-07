@@ -6,7 +6,7 @@ import java.util.Map;
 
 @Data
 public class FetchResponse {
-    private Map<String, Vector> vectors;
+    private Map<String, Embedding> vectors;
 
     private String namespace;
 

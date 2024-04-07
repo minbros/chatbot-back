@@ -2,16 +2,18 @@ package org.minbros.chatbot.util;
 
 import org.minbros.chatbot.client.EmbeddingClient;
 import org.minbros.chatbot.dto.openai.EmbedRequest;
+import org.minbros.chatbot.dto.openai.EmbedResponse;
 import org.minbros.chatbot.dto.pinecone.FetchRequest;
 import org.minbros.chatbot.dto.pinecone.QueryRequest;
 import org.minbros.chatbot.dto.pinecone.UpsertRequest;
-import org.minbros.chatbot.dto.pinecone.Vector;
+import org.minbros.chatbot.dto.pinecone.Embedding;
+import org.springframework.ai.document.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -29,8 +31,24 @@ public class PineconeRequestGenerator {
         this.embeddingClient = embeddingClient;
     }
 
-    public UpsertRequest toUpsertRequest(String message, String id, String keyword) {
-        return embedRequestToUpsertRequest(new EmbedRequest(message), id, keyword);
+    public UpsertRequest toUpsertRequest(Document document) {
+        List<Embedding> embeddings = new ArrayList<>();
+        addEmbeddingValues(document, embeddings);
+
+        return UpsertRequest.builder()
+                .vectors(embeddings)
+                .namespace(DEFAULT_NAMESPACE)
+                .build();
+    }
+
+    public UpsertRequest toUpsertRequest(List<Document> documents) {
+        List<Embedding> embeddings = new ArrayList<>();
+        for (Document document : documents) { addEmbeddingValues(document, embeddings); }
+
+        return UpsertRequest.builder()
+                .vectors(embeddings)
+                .namespace(DEFAULT_NAMESPACE)
+                .build();
     }
 
     public QueryRequest toQueryRequest(String message, int topK) {
@@ -54,20 +72,13 @@ public class PineconeRequestGenerator {
                 .build();
     }
 
-    private UpsertRequest embedRequestToUpsertRequest(EmbedRequest embedRequest, String id, String keyword) {
-        Vector vector = Vector.builder()
-                .id(id)
-                .values(Objects.requireNonNull(embeddingClient.embed(embedRequest).block()).getData().getFirst().getEmbedding())
-                .metadata(Map.of("content", embedRequest.getInput(), "keyword", keyword))
+    private void addEmbeddingValues(Document document, List<Embedding> embeddings) {
+        Mono<EmbedResponse> embedResponseMono = embeddingClient.embed(document);
+        Embedding embedding = Embedding.builder()
+                .id(document.getId())
+                .values(Objects.requireNonNull(embedResponseMono.block()).getData().getFirst().getEmbedding())
+                .metadata(document.getMetadata())
                 .build();
-
-        return getUpsertRequest(vector);
-    }
-
-    private static UpsertRequest getUpsertRequest(Vector vector) {
-        List<Vector> vectorsList = new ArrayList<>();
-        vectorsList.add(vector);
-
-        return new UpsertRequest(vectorsList, DEFAULT_NAMESPACE);
+        embeddings.add(embedding);
     }
 }

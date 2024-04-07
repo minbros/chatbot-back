@@ -4,9 +4,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.minbros.chatbot.dto.pinecone.*;
 import org.minbros.chatbot.util.PineconeRequestGenerator;
+import org.springframework.ai.document.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,8 +24,8 @@ class PineconeClientTest {
     @Test
     @DisplayName("Pinecone upsert 테스트")
     void upsertTest() {
-        UpsertRequest request =
-                pineconeRequestGenerator.toUpsertRequest("서울시립대학교의 학생회관의 식단에 관련된 질문", "diet", "학식");
+        Document document = new Document("diet", "서울시립대학교의 학생회관의 식단에 관련된 질문", Map.of("keyword", "학식"));
+        UpsertRequest request = pineconeRequestGenerator.toUpsertRequest(document);
         UpsertResponse response = pineconeClient.upsert(request).block();
         System.out.println(response);
         assertNotNull(response);

@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UpsertRequest {
     @NonNull
-    private List<Vector> vectors;
+    private List<Embedding> vectors;
 
     private String namespace;
 }

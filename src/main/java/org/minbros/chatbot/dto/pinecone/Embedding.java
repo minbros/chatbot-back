@@ -7,10 +7,9 @@ import java.util.Map;
 
 @Data
 @Builder
-@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Vector {
+public class Embedding {
     @NonNull
     private String id;
 
