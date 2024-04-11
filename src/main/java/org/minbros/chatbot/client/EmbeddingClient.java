@@ -1,9 +1,11 @@
 package org.minbros.chatbot.client;
 
 import groovy.util.logging.Slf4j;
+import lombok.Getter;
 import org.minbros.chatbot.dto.openai.EmbedRequest;
 import org.minbros.chatbot.dto.openai.EmbedResponse;
 import org.springframework.ai.document.Document;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -12,13 +14,12 @@ import reactor.core.publisher.Mono;
 
 
 @Component
+@Getter
 @Slf4j
 public class EmbeddingClient {
     private final WebClient webClient;
 
-    public EmbeddingClient() {
-        String openaiAPIKey = System.getenv("OPENAI_API_KEY");
-
+    public EmbeddingClient(@Value("${openai-api-key}") String openaiAPIKey) {
         this.webClient = WebClient.builder()
                 .baseUrl("https://api.openai.com/v1/embeddings")
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + openaiAPIKey)

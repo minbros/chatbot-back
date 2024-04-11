@@ -2,6 +2,7 @@ package org.minbros.chatbot.client;
 
 import lombok.extern.slf4j.Slf4j;
 import org.minbros.chatbot.dto.pinecone.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -14,9 +15,7 @@ import reactor.core.publisher.Mono;
 public class PineconeClient {
     private final WebClient webClient;
 
-    public PineconeClient() {
-        String pineconeAPIKey = System.getenv("PINECONE_API_KEY");
-
+    public PineconeClient(@Value("${pinecone-api-key}") String pineconeAPIKey) {
         this.webClient = WebClient.builder()
                 .baseUrl("https://sidae-bot-db-7y2rpah.svc.apw5-4e34-81fa.pinecone.io")
                 .defaultHeader("Api-Key", pineconeAPIKey)
