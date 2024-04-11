@@ -7,6 +7,7 @@ import java.util.Map;
 
 @Data
 @Builder
+@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Embedding {

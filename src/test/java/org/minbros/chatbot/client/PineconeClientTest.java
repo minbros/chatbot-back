@@ -24,7 +24,7 @@ class PineconeClientTest {
     @Test
     @DisplayName("Pinecone upsert 테스트")
     void upsertTest() {
-        Document document = new Document("diet", "서울시립대학교의 학생회관의 식단에 관련된 질문", Map.of("keyword", "학식"));
+        Document document = new Document("diet", "서울시립대학교의 학생회관의 식단에 관련된 질문", Map.of("keyword", "학식", "content", "서울시립대학교의 학생회관의 식단에 관련된 질문"));
         UpsertRequest request = pineconeRequestGenerator.toUpsertRequest(document);
         UpsertResponse response = pineconeClient.upsert(request).block();
         System.out.println(response);
