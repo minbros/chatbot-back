@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 public class EmbeddingClient {
     private final WebClient webClient;
 
-    public EmbeddingClient(@Value("${openai-api-key}") String openaiAPIKey) {
+    public EmbeddingClient(@Value("${spring.ai.openai.api-key}") String openaiAPIKey) {
         this.webClient = WebClient.builder()
                 .baseUrl("https://api.openai.com/v1/embeddings")
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + openaiAPIKey)
